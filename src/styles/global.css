@@ -28,10 +28,10 @@
 	--color-accent-light: #7fff5e;
 	--color-accent-dark: #2bcc10;
 
-	--font-pixel: 'Press Start 2P', 'DotGothic16', monospace;
-	--font-pixel-ko: 'DotGothic16', monospace;
-	--font-mono: 'VT323', 'DotGothic16', 'Courier New', monospace;
-	--font-body: 'Space Mono', 'DotGothic16', 'Courier New', monospace;
+	--font-pixel: 'Press Start 2P', 'NeoDunggeunmo', monospace;
+	--font-pixel-ko: 'NeoDunggeunmo', monospace;
+	--font-mono: 'VT323', 'NeoDunggeunmo', 'Courier New', monospace;
+	--font-body: 'Space Mono', 'NeoDunggeunmo', 'Courier New', monospace;
 }
 
 /* ===== Base Styles ===== */
