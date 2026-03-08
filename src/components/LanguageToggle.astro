@@ -1,0 +1,112 @@
+---
+/**
+ * 언어 전환 토글 컴포넌트.
+ * EN / 한글 버튼으로 블로그 콘텐츠의 표시 언어를 전환한다.
+ * localStorage에 선택값을 저장하여 페이지 간 이동 시에도 유지한다.
+ */
+---
+
+<div class="lang-toggle" id="lang-toggle">
+    <button
+        id="lang-btn-en"
+        class="lang-btn lang-btn--active"
+        data-lang="en"
+        aria-label="Switch to English"
+    >
+        EN
+    </button>
+    <span class="lang-separator">|</span>
+    <button
+        id="lang-btn-ko"
+        class="lang-btn"
+        data-lang="ko"
+        aria-label="한국어로 전환"
+    >
+        한글
+    </button>
+</div>
+
+<style>
+    .lang-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        border: 1px solid var(--color-border-default);
+        padding: 0.2rem 0.5rem;
+        background: var(--color-bg-secondary);
+    }
+
+    .lang-btn {
+        font-family: var(--font-pixel);
+        font-size: 0.45rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-text-secondary);
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.15rem 0.35rem;
+        transition: all 0.15s ease;
+        line-height: 1;
+    }
+
+    .lang-btn:hover {
+        color: var(--color-neon-cyan);
+    }
+
+    .lang-btn--active {
+        color: var(--color-neon-cyan);
+        text-shadow: 0 0 8px rgba(0, 255, 255, 0.5);
+        background: rgba(0, 255, 255, 0.08);
+    }
+
+    .lang-separator {
+        font-family: var(--font-pixel);
+        font-size: 0.45rem;
+        color: var(--color-border-default);
+        line-height: 1;
+    }
+</style>
+
+<script>
+    function initLangToggle() {
+        const STORAGE_KEY = "blog-lang";
+        const saved = localStorage.getItem(STORAGE_KEY) || "en";
+
+        const btnEn = document.getElementById("lang-btn-en");
+        const btnKo = document.getElementById("lang-btn-ko");
+
+        function setLang(lang: string) {
+            localStorage.setItem(STORAGE_KEY, lang);
+
+            // 토글 버튼 상태 업데이트
+            if (btnEn && btnKo) {
+                btnEn.classList.toggle("lang-btn--active", lang === "en");
+                btnKo.classList.toggle("lang-btn--active", lang === "ko");
+            }
+
+            // lang 속성별 콘텐츠 전환
+            document.querySelectorAll("[data-lang-content]").forEach((el) => {
+                const htmlEl = el as HTMLElement;
+                if (htmlEl.dataset.langContent === lang) {
+                    htmlEl.style.display = "";
+                } else {
+                    htmlEl.style.display = "none";
+                }
+            });
+
+            // html lang 속성 업데이트
+            document.documentElement.lang = lang === "ko" ? "ko" : "en";
+        }
+
+        btnEn?.addEventListener("click", () => setLang("en"));
+        btnKo?.addEventListener("click", () => setLang("ko"));
+
+        // 초기 언어 적용
+        setLang(saved);
+    }
+
+    // Astro View Transitions 대응
+    initLangToggle();
+    document.addEventListener("astro:after-swap", initLangToggle);
+</script>

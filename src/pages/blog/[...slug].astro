@@ -1,20 +1,28 @@
 ---
-import { type CollectionEntry, getCollection, render } from 'astro:content';
-import BlogPost from '../../layouts/BlogPost.astro';
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import BlogPost from "../../layouts/BlogPost.astro";
 
 export async function getStaticPaths() {
-	const posts = await getCollection('blog');
+	const posts = await getCollection("blog");
 	return posts.map((post) => ({
 		params: { slug: post.id },
 		props: post,
 	}));
 }
-type Props = CollectionEntry<'blog'>;
+type Props = CollectionEntry<"blog">;
 
 const post = Astro.props;
 const { Content } = await render(post);
+
+/**
+ * 렌더링된 HTML에서 언어별 콘텐츠를 분리한다.
+ * <!-- lang:en --> / <!-- lang:ko --> 구분자가 없으면 전체를 영어로 취급한다.
+ */
+const hasLangDelimiters =
+	post.body?.includes("<!-- lang:en -->") ||
+	post.body?.includes("<!-- lang:ko -->");
 ---
 
-<BlogPost {...post.data}>
+<BlogPost {...post.data} hasBilingual={!!hasLangDelimiters}>
 	<Content />
 </BlogPost>
