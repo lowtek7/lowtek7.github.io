@@ -28,26 +28,10 @@
 	--color-accent-light: #7fff5e;
 	--color-accent-dark: #2bcc10;
 
-	--font-pixel: 'PixelComposite', 'Press Start 2P', monospace;
+	--font-pixel: 'Press Start 2P', 'DotGothic16', monospace;
 	--font-pixel-ko: 'DotGothic16', monospace;
 	--font-mono: 'VT323', 'DotGothic16', 'Courier New', monospace;
 	--font-body: 'Space Mono', 'DotGothic16', 'Courier New', monospace;
-}
-
-/* ===== Korean Pixel Font: unicode-range fallback ===== */
-/* 한글 문자에만 DotGothic16을 적용하고, 영어는 Press Start 2P를 유지한다. */
-@font-face {
-	font-family: 'PixelComposite';
-	src: local('Press Start 2P');
-	/* Latin, Latin Extended, digits, symbols */
-	unicode-range: U+0000-00FF, U+0100-024F, U+2000-206F, U+20A0-20CF, U+2100-214F;
-}
-
-@font-face {
-	font-family: 'PixelComposite';
-	src: local('DotGothic16');
-	/* Hangul Syllables + Hangul Jamo + Compatibility Jamo */
-	unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F;
 }
 
 /* ===== Base Styles ===== */
