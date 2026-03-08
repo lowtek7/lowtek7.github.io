@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+const posts = await getCollection('blog');
+
+// Collect all tags with their post count
+const tagMap = new Map<string, number>();
+posts.forEach((post) => {
+	post.data.tags.forEach((tag) => {
+		tagMap.set(tag, (tagMap.get(tag) || 0) + 1);
+	});
+});
+
+// Sort tags alphabetically
+const sortedTags = [...tagMap.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+
+// Neon colors to cycle through for tags
+const tagColors = ['neon-green', 'neon-pink', 'neon-cyan', 'neon-yellow', 'neon-purple', 'neon-orange'];
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`Tags — ${SITE_TITLE}`} description="Browse posts by tag" />
+	</head>
+	<body class="min-h-screen flex flex-col">
+		<Header />
+		<main class="flex-1">
+			<div class="mx-auto max-w-3xl px-6 py-12">
+				<!-- Page Header -->
+				<div class="retro-window mb-10">
+					<div class="retro-titlebar">
+						<div class="retro-titlebar-dots">
+							<span></span><span></span><span></span>
+						</div>
+						tag_index.dat
+					</div>
+					<div class="p-6">
+						<h1 class="neon-yellow" style="font-family: var(--font-pixel); font-size: 1rem; text-transform: uppercase;">
+							🏷️ Tags
+						</h1>
+						<p class="mt-3 text-text-secondary" style="font-family: var(--font-mono); font-size: 1rem;">
+							> Listing all tags... [{sortedTags.length} tags found]
+						</p>
+						<div class="mt-3 h-0.5 w-24 bg-neon-yellow"></div>
+					</div>
+				</div>
+
+				<!-- Tag Grid -->
+				<div class="retro-window">
+					<div class="retro-titlebar">
+						<div class="retro-titlebar-dots">
+							<span></span><span></span><span></span>
+						</div>
+						select_tag.exe
+					</div>
+					<div class="p-6">
+						<div class="flex flex-wrap gap-3">
+							{sortedTags.map(([tag, count], index) => {
+								const color = tagColors[index % tagColors.length];
+								return (
+									<a
+										href={`/tags/${tag}/`}
+										class={`group inline-flex items-center gap-2 border-2 px-4 py-2 transition-all duration-150 hover:scale-105 border-${color}`}
+										style="font-family: var(--font-pixel); font-size: 0.5rem; text-transform: uppercase; letter-spacing: 1px;"
+									>
+										<span class={`text-${color}`}>#{tag}</span>
+										<span
+											class="inline-flex items-center justify-center w-5 h-5 text-[0.4rem] border"
+											style={`border-color: var(--color-${color}); color: var(--color-${color});`}
+										>
+											{count}
+										</span>
+									</a>
+								);
+							})}
+						</div>
+
+						{sortedTags.length === 0 && (
+							<p class="text-text-secondary" style="font-family: var(--font-mono); font-size: 1rem;">
+								> No tags found. Add tags to your blog posts!
+							</p>
+						)}
+					</div>
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>

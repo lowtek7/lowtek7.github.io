@@ -1,0 +1,108 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+	const posts = await getCollection('blog');
+	
+	// Collect all unique tags
+	const tags = new Set<string>();
+	posts.forEach((post) => {
+		post.data.tags.forEach((tag) => tags.add(tag));
+	});
+
+	return [...tags].map((tag) => ({
+		params: { tag },
+		props: {
+			tag,
+			posts: posts
+				.filter((post) => post.data.tags.includes(tag))
+				.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()),
+		},
+	}));
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead title={`#${tag} — ${SITE_TITLE}`} description={`Posts tagged with #${tag}`} />
+	</head>
+	<body class="min-h-screen flex flex-col">
+		<Header />
+		<main class="flex-1">
+			<div class="mx-auto max-w-3xl px-6 py-12">
+				<!-- Page Header -->
+				<div class="retro-window mb-10">
+					<div class="retro-titlebar">
+						<div class="retro-titlebar-dots">
+							<span></span><span></span><span></span>
+						</div>
+						tag_filter.exe — #{tag}
+					</div>
+					<div class="p-6">
+						<h1 class="neon-yellow" style="font-family: var(--font-pixel); font-size: 0.85rem; text-transform: uppercase;">
+							🏷️ #{tag}
+						</h1>
+						<p class="mt-3 text-text-secondary" style="font-family: var(--font-mono); font-size: 1rem;">
+							> Filtering by tag: "{tag}" [{posts.length} posts found]
+						</p>
+						<div class="mt-4 flex gap-3">
+							<a href="/tags" class="pixel-btn">← All Tags</a>
+							<a href="/blog" class="pixel-btn pixel-btn-pink">← All Posts</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- Posts with this tag -->
+				<div class="space-y-4">
+					{posts.map((post, index) => (
+						<a
+							href={`/blog/${post.id}/`}
+							class="group block retro-window transition-all duration-200 hover:border-neon-green"
+						>
+							<div class="retro-titlebar">
+								<div class="retro-titlebar-dots">
+									<span></span><span></span><span></span>
+								</div>
+								result_{String(index + 1).padStart(2, '0')}.md
+							</div>
+							<div class="p-5">
+								<div class="flex items-center gap-3 mb-2">
+									<span class="neon-green" style="font-family: var(--font-pixel); font-size: 0.4rem;">
+										[{String(index + 1).padStart(2, '0')}]
+									</span>
+									<FormattedDate date={post.data.pubDate} />
+								</div>
+								<h2 class="text-text-primary transition-colors duration-200 group-hover:text-neon-green" style="font-family: var(--font-pixel); font-size: 0.6rem; text-transform: uppercase; line-height: 2;">
+									{post.data.title}
+								</h2>
+								<p class="mt-2 text-text-secondary" style="font-family: var(--font-mono); font-size: 0.95rem;">
+									{post.data.description}
+								</p>
+								<!-- Show all tags for this post -->
+								<div class="mt-3 flex flex-wrap gap-2">
+									{post.data.tags.map((t) => (
+										<span
+											class={`text-[0.4rem] px-2 py-1 border ${t === tag ? 'border-neon-yellow text-neon-yellow bg-neon-yellow/10' : 'border-border-default text-text-secondary'}`}
+											style="font-family: var(--font-pixel); text-transform: uppercase; letter-spacing: 1px;"
+										>
+											#{t}
+										</span>
+									))}
+								</div>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
+		</main>
+		<Footer />
+	</body>
+</html>
