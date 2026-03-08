@@ -1,14 +1,17 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_TITLE } from "../consts";
 ---
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
-		<BaseHead title={`About — ${SITE_TITLE}`} description="About Amber World" />
+		<BaseHead
+			title={`About — ${SITE_TITLE}`}
+			description="About Amber World"
+		/>
 	</head>
 	<body class="min-h-screen flex flex-col">
 		<Header />
@@ -23,8 +26,19 @@ import { SITE_TITLE } from '../consts';
 						about_me.exe
 					</div>
 					<div class="p-6 text-center">
-						<h1 class="neon-cyan" style="font-family: var(--font-pixel); font-size: 1rem; text-transform: uppercase;">
+						<h1
+							data-lang-content="en"
+							class="neon-cyan"
+							style="font-family: var(--font-pixel); font-size: 1rem; text-transform: uppercase;"
+						>
 							👾 About
+						</h1>
+						<h1
+							data-lang-content="ko"
+							class="neon-cyan"
+							style="font-family: var(--font-pixel); font-size: 1rem; text-transform: uppercase; display: none;"
+						>
+							👾 소개
 						</h1>
 					</div>
 				</div>
@@ -38,48 +52,154 @@ import { SITE_TITLE } from '../consts';
 						character_stats.dat
 					</div>
 					<div class="p-6">
-						<div class="flex flex-col items-center gap-6 md:flex-row md:items-start">
+						<div
+							class="flex flex-col items-center gap-6 md:flex-row md:items-start"
+						>
 							<!-- ASCII Avatar -->
-							<div class="flex-shrink-0 flex items-center justify-center w-24 h-24 border-2 border-neon-green bg-bg-tertiary" style="font-size: 2.5rem;">
+							<div
+								class="flex-shrink-0 flex items-center justify-center w-24 h-24 border-2 border-neon-green bg-bg-tertiary"
+								style="font-size: 2.5rem;"
+							>
 								👾
 							</div>
 							<div class="flex-1 text-center md:text-left">
-								<h2 class="neon-green" style="font-family: var(--font-pixel); font-size: 0.75rem; text-transform: uppercase;">
+								<h2
+									data-lang-content="en"
+									class="neon-green"
+									style="font-family: var(--font-pixel); font-size: 0.75rem; text-transform: uppercase;"
+								>
 									Player: Amber
 								</h2>
-								<p class="mt-1 neon-pink" style="font-family: var(--font-pixel); font-size: 0.5rem; text-transform: uppercase;">
+								<h2
+									data-lang-content="ko"
+									class="neon-green"
+									style="font-family: var(--font-pixel); font-size: 0.75rem; text-transform: uppercase; display: none;"
+								>
+									플레이어: Amber
+								</h2>
+								<p
+									data-lang-content="en"
+									class="mt-1 neon-pink"
+									style="font-family: var(--font-pixel); font-size: 0.5rem; text-transform: uppercase;"
+								>
 									Class: Developer & Creator
+								</p>
+								<p
+									data-lang-content="ko"
+									class="mt-1 neon-pink"
+									style="font-family: var(--font-pixel); font-size: 0.5rem; text-transform: uppercase; display: none;"
+								>
+									직업: 개발자 & 크리에이터
 								</p>
 
 								<!-- Stats -->
-								<div class="mt-4 space-y-2" style="font-family: var(--font-mono); font-size: 1rem;">
-									<div class="flex items-center gap-2 stat-row" data-stat="str" data-color="green">
-										<span class="text-neon-green w-16 stat-label" id="str-label">STR</span>
-										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden">
-											<div class="h-full bg-neon-green stat-bar transition-none" id="str-bar" style="width: 0%;"></div>
+								<div
+									class="mt-4 space-y-2"
+									style="font-family: var(--font-mono); font-size: 1rem;"
+								>
+									<div
+										class="flex items-center gap-2 stat-row"
+										data-stat="str"
+										data-color="green"
+									>
+										<span
+											class="text-neon-green w-16 stat-label"
+											id="str-label">STR</span
+										>
+										<div
+											class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden"
+										>
+											<div
+												class="h-full bg-neon-green stat-bar transition-none"
+												id="str-bar"
+												style="width: 0%;"
+											>
+											</div>
 										</div>
-										<span class="text-text-secondary w-12 text-right stat-value" id="str-value" style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;">0</span>
+										<span
+											class="text-text-secondary w-12 text-right stat-value"
+											id="str-value"
+											style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;"
+											>0</span
+										>
 									</div>
-									<div class="flex items-center gap-2 stat-row" data-stat="int" data-color="cyan">
-										<span class="text-neon-cyan w-16 stat-label" id="int-label">INT</span>
-										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden">
-											<div class="h-full bg-neon-cyan stat-bar transition-none" id="int-bar" style="width: 0%;"></div>
+									<div
+										class="flex items-center gap-2 stat-row"
+										data-stat="int"
+										data-color="cyan"
+									>
+										<span
+											class="text-neon-cyan w-16 stat-label"
+											id="int-label">INT</span
+										>
+										<div
+											class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden"
+										>
+											<div
+												class="h-full bg-neon-cyan stat-bar transition-none"
+												id="int-bar"
+												style="width: 0%;"
+											>
+											</div>
 										</div>
-										<span class="text-text-secondary w-12 text-right stat-value" id="int-value" style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;">0</span>
+										<span
+											class="text-text-secondary w-12 text-right stat-value"
+											id="int-value"
+											style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;"
+											>0</span
+										>
 									</div>
-									<div class="flex items-center gap-2 stat-row" data-stat="dex" data-color="pink">
-										<span class="text-neon-pink w-16 stat-label" id="dex-label">DEX</span>
-										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden">
-											<div class="h-full bg-neon-pink stat-bar transition-none" id="dex-bar" style="width: 0%;"></div>
+									<div
+										class="flex items-center gap-2 stat-row"
+										data-stat="dex"
+										data-color="pink"
+									>
+										<span
+											class="text-neon-pink w-16 stat-label"
+											id="dex-label">DEX</span
+										>
+										<div
+											class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden"
+										>
+											<div
+												class="h-full bg-neon-pink stat-bar transition-none"
+												id="dex-bar"
+												style="width: 0%;"
+											>
+											</div>
 										</div>
-										<span class="text-text-secondary w-12 text-right stat-value" id="dex-value" style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;">0</span>
+										<span
+											class="text-text-secondary w-12 text-right stat-value"
+											id="dex-value"
+											style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;"
+											>0</span
+										>
 									</div>
-									<div class="flex items-center gap-2 stat-row" data-stat="luk" data-color="yellow">
-										<span class="text-neon-yellow w-16 stat-label" id="luk-label">LUK</span>
-										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden">
-											<div class="h-full bg-neon-yellow stat-bar transition-none" id="luk-bar" style="width: 0%;"></div>
+									<div
+										class="flex items-center gap-2 stat-row"
+										data-stat="luk"
+										data-color="yellow"
+									>
+										<span
+											class="text-neon-yellow w-16 stat-label"
+											id="luk-label">LUK</span
+										>
+										<div
+											class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden"
+										>
+											<div
+												class="h-full bg-neon-yellow stat-bar transition-none"
+												id="luk-bar"
+												style="width: 0%;"
+											>
+											</div>
 										</div>
-										<span class="text-text-secondary w-12 text-right stat-value" id="luk-value" style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;">0</span>
+										<span
+											class="text-text-secondary w-12 text-right stat-value"
+											id="luk-value"
+											style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;"
+											>0</span
+										>
 									</div>
 								</div>
 
@@ -108,26 +228,84 @@ import { SITE_TITLE } from '../consts';
 						readme.md
 					</div>
 					<div class="p-6 prose">
-						<h2>What is Amber World?</h2>
-						<p>
-							Amber World is a space dedicated to exploring the intersection of technology and creativity. 
-							Here you'll find articles about software development, programming insights, and reflections 
-							on the craft of building digital products.
-						</p>
+						<!-- English Content -->
+						<div data-lang-content="en">
+							<h2>What is Amber World?</h2>
+							<p>
+								Amber World is a space dedicated to exploring
+								the intersection of technology and creativity.
+								Here you'll find articles about software
+								development, programming insights, and
+								reflections on the craft of building digital
+								products.
+							</p>
 
-						<h2>Quest Log</h2>
-						<ul>
-							<li><strong>Software Development</strong> — Deep dives into code, architecture, and best practices</li>
-							<li><strong>Game Development</strong> — Exploring game design patterns and engine development</li>
-							<li><strong>Technology</strong> — Thoughts on tools, frameworks, and the evolving tech landscape</li>
-							<li><strong>Creative Process</strong> — How I approach problem-solving and project building</li>
-						</ul>
+							<h2>Quest Log</h2>
+							<ul>
+								<li>
+									<strong>Software Development</strong> — Deep
+									dives into code, architecture, and best practices
+								</li>
+								<li>
+									<strong>Game Development</strong> — Exploring
+									game design patterns and engine development
+								</li>
+								<li>
+									<strong>Technology</strong> — Thoughts on tools,
+									frameworks, and the evolving tech landscape
+								</li>
+								<li>
+									<strong>Creative Process</strong> — How I approach
+									problem-solving and project building
+								</li>
+							</ul>
 
-						<h2>Contact</h2>
-						<p>
-							Feel free to reach out through <a href="https://github.com/lowtek7">GitHub</a>. 
-							I'm always happy to connect with fellow developers and creators.
-						</p>
+							<h2>Contact</h2>
+							<p>
+								Feel free to reach out through <a
+									href="https://github.com/lowtek7">GitHub</a
+								>. I'm always happy to connect with fellow
+								developers and creators.
+							</p>
+						</div>
+
+						<!-- Korean Content -->
+						<div data-lang-content="ko" style="display: none;">
+							<h2>Amber World란?</h2>
+							<p>
+								Amber World는 기술과 창의성이 만나는 지점을
+								탐구하는 공간입니다. 여기서는 소프트웨어 개발,
+								프로그래밍 인사이트, 그리고 디지털 제품을 만드는
+								과정에 대한 이야기를 공유합니다.
+							</p>
+
+							<h2>퀘스트 목록</h2>
+							<ul>
+								<li>
+									<strong>소프트웨어 개발</strong> — 코드, 아키텍처,
+									모범 사례에 대한 깊이 있는 탐구
+								</li>
+								<li>
+									<strong>게임 개발</strong> — 게임 디자인 패턴과
+									엔진 개발 탐험
+								</li>
+								<li>
+									<strong>기술</strong> — 도구, 프레임워크, 그리고
+									변화하는 기술 환경에 대한 생각
+								</li>
+								<li>
+									<strong>창작 과정</strong> — 문제 해결과 프로젝트
+									구축에 대한 접근 방식
+								</li>
+							</ul>
+
+							<h2>연락처</h2>
+							<p>
+								<a href="https://github.com/lowtek7">GitHub</a
+								>을 통해 편하게 연락주세요. 동료 개발자,
+								크리에이터와 교류하는 것을 항상 환영합니다.
+							</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -137,32 +315,79 @@ import { SITE_TITLE } from '../consts';
 		<style>
 			/* Glitch flash on the stat row */
 			@keyframes stat-glitch {
-				0% { opacity: 1; transform: translateX(0); }
-				10% { opacity: 0.7; transform: translateX(-3px) skewX(-5deg); }
-				20% { opacity: 1; transform: translateX(2px) skewX(2deg); }
-				30% { opacity: 0.5; transform: translateX(-1px); }
-				40% { opacity: 1; transform: translateX(0); }
-				100% { opacity: 1; transform: translateX(0); }
+				0% {
+					opacity: 1;
+					transform: translateX(0);
+				}
+				10% {
+					opacity: 0.7;
+					transform: translateX(-3px) skewX(-5deg);
+				}
+				20% {
+					opacity: 1;
+					transform: translateX(2px) skewX(2deg);
+				}
+				30% {
+					opacity: 0.5;
+					transform: translateX(-1px);
+				}
+				40% {
+					opacity: 1;
+					transform: translateX(0);
+				}
+				100% {
+					opacity: 1;
+					transform: translateX(0);
+				}
 			}
 
 			/* Glitch on the number value */
 			@keyframes value-glitch {
-				0% { text-shadow: none; }
-				15% { text-shadow: 2px 0 #ff2d95, -2px 0 #00fff5; color: #ff2d95; }
-				30% { text-shadow: -1px 0 #39ff14, 1px 0 #ff2d95; color: #00fff5; }
-				45% { text-shadow: 1px 1px #ffe66d; color: #ffe66d; }
-				60% { text-shadow: none; color: inherit; }
-				100% { text-shadow: none; color: inherit; }
+				0% {
+					text-shadow: none;
+				}
+				15% {
+					text-shadow: 2px 0 #ff2d95, -2px 0 #00fff5;
+					color: #ff2d95;
+				}
+				30% {
+					text-shadow: -1px 0 #39ff14, 1px 0 #ff2d95;
+					color: #00fff5;
+				}
+				45% {
+					text-shadow: 1px 1px #ffe66d;
+					color: #ffe66d;
+				}
+				60% {
+					text-shadow: none;
+					color: inherit;
+				}
+				100% {
+					text-shadow: none;
+					color: inherit;
+				}
 			}
 
 			/* Bar flash */
 			@keyframes bar-glitch {
-				0% { opacity: 1; }
-				20% { opacity: 0.3; }
-				40% { opacity: 1; }
-				60% { opacity: 0.6; }
-				80% { opacity: 1; }
-				100% { opacity: 1; }
+				0% {
+					opacity: 1;
+				}
+				20% {
+					opacity: 0.3;
+				}
+				40% {
+					opacity: 1;
+				}
+				60% {
+					opacity: 0.6;
+				}
+				80% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 1;
+				}
 			}
 
 			.stat-row.glitching {
@@ -184,8 +409,8 @@ import { SITE_TITLE } from '../consts';
 
 		<script>
 			// Each stat has its own independent animation loop
-			const stats = ['str', 'int', 'dex', 'luk'];
-			const glitchChars = '!@#$%^&*░▒▓█▀▄■□▪▫';
+			const stats = ["str", "int", "dex", "luk"];
+			const glitchChars = "!@#$%^&*░▒▓█▀▄■□▪▫";
 
 			class StatAnimator {
 				constructor(name) {
@@ -193,7 +418,7 @@ import { SITE_TITLE } from '../consts';
 					this.bar = document.getElementById(`${name}-bar`);
 					this.value = document.getElementById(`${name}-value`);
 					this.label = document.getElementById(`${name}-label`);
-					this.row = this.bar?.closest('.stat-row');
+					this.row = this.bar?.closest(".stat-row");
 					this.current = Math.random() * 999;
 					this.target = Math.random() * 999;
 					this.speed = 0.5 + Math.random() * 3; // each stat has different speed
@@ -232,7 +457,7 @@ import { SITE_TITLE } from '../consts';
 					this.bar.style.width = `${pct}%`;
 
 					// Update value text
-					this.value.textContent = String(intVal).padStart(3, ' ');
+					this.value.textContent = String(intVal).padStart(3, " ");
 
 					// Random spontaneous glitch (low chance each frame)
 					if (this.glitchCooldown <= 0 && Math.random() < 0.003) {
@@ -249,10 +474,10 @@ import { SITE_TITLE } from '../consts';
 					this.glitchCooldown = 60; // ~1 second cooldown at 60fps
 
 					// Glitch the row
-					this.row?.classList.add('glitching');
-					this.value?.classList.add('glitching');
-					this.bar?.classList.add('glitching');
-					this.label?.classList.add('glitching');
+					this.row?.classList.add("glitching");
+					this.value?.classList.add("glitching");
+					this.bar?.classList.add("glitching");
+					this.label?.classList.add("glitching");
 
 					// Briefly scramble the label text
 					const originalLabel = this.name.toUpperCase();
@@ -262,13 +487,23 @@ import { SITE_TITLE } from '../consts';
 					const scrambleInterval = setInterval(() => {
 						if (scrambleIdx >= scrambleCount) {
 							clearInterval(scrambleInterval);
-							if (this.label) this.label.textContent = originalLabel;
+							if (this.label)
+								this.label.textContent = originalLabel;
 							return;
 						}
 						if (this.label) {
 							this.label.textContent = Array.from(originalLabel)
-								.map(c => Math.random() < 0.5 ? glitchChars[Math.floor(Math.random() * glitchChars.length)] : c)
-								.join('');
+								.map((c) =>
+									Math.random() < 0.5
+										? glitchChars[
+												Math.floor(
+													Math.random() *
+														glitchChars.length
+												)
+										  ]
+										: c
+								)
+								.join("");
 						}
 						scrambleIdx++;
 					}, 50);
@@ -276,28 +511,31 @@ import { SITE_TITLE } from '../consts';
 					// Briefly show random value
 					const origVal = this.value?.textContent;
 					if (this.value) {
-						this.value.textContent = String(Math.floor(Math.random() * 999)).padStart(3, ' ');
+						this.value.textContent = String(
+							Math.floor(Math.random() * 999)
+						).padStart(3, " ");
 						setTimeout(() => {
-							if (this.value && origVal) this.value.textContent = origVal;
+							if (this.value && origVal)
+								this.value.textContent = origVal;
 						}, 100);
 					}
 
 					// Remove glitch classes after animation
 					setTimeout(() => {
-						this.row?.classList.remove('glitching');
-						this.value?.classList.remove('glitching');
-						this.bar?.classList.remove('glitching');
-						this.label?.classList.remove('glitching');
+						this.row?.classList.remove("glitching");
+						this.value?.classList.remove("glitching");
+						this.bar?.classList.remove("glitching");
+						this.label?.classList.remove("glitching");
 					}, 400);
 				}
 			}
 
 			// Initialize all stat animators
-			const animators = stats.map(s => new StatAnimator(s));
+			const animators = stats.map((s) => new StatAnimator(s));
 
 			// Main animation loop
 			function animate(now) {
-				animators.forEach(a => a.update(now));
+				animators.forEach((a) => a.update(now));
 				requestAnimationFrame(animate);
 			}
 
