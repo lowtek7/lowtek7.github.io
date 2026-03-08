@@ -53,33 +53,33 @@ import { SITE_TITLE } from '../consts';
 
 								<!-- Stats -->
 								<div class="mt-4 space-y-2" style="font-family: var(--font-mono); font-size: 1rem;">
-									<div class="flex items-center gap-2">
-										<span class="text-neon-green w-16">STR</span>
-										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary">
-											<div class="h-full bg-neon-green" style="width: 85%;"></div>
+									<div class="flex items-center gap-2 stat-row" data-stat="str" data-color="green">
+										<span class="text-neon-green w-16 stat-label" id="str-label">STR</span>
+										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden">
+											<div class="h-full bg-neon-green stat-bar transition-none" id="str-bar" style="width: 0%;"></div>
 										</div>
-										<span class="text-text-secondary w-8">85</span>
+										<span class="text-text-secondary w-12 text-right stat-value" id="str-value" style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;">0</span>
 									</div>
-									<div class="flex items-center gap-2">
-										<span class="text-neon-cyan w-16">INT</span>
-										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary">
-											<div class="h-full bg-neon-cyan" style="width: 92%;"></div>
+									<div class="flex items-center gap-2 stat-row" data-stat="int" data-color="cyan">
+										<span class="text-neon-cyan w-16 stat-label" id="int-label">INT</span>
+										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden">
+											<div class="h-full bg-neon-cyan stat-bar transition-none" id="int-bar" style="width: 0%;"></div>
 										</div>
-										<span class="text-text-secondary w-8">92</span>
+										<span class="text-text-secondary w-12 text-right stat-value" id="int-value" style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;">0</span>
 									</div>
-									<div class="flex items-center gap-2">
-										<span class="text-neon-pink w-16">DEX</span>
-										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary">
-											<div class="h-full bg-neon-pink" style="width: 78%;"></div>
+									<div class="flex items-center gap-2 stat-row" data-stat="dex" data-color="pink">
+										<span class="text-neon-pink w-16 stat-label" id="dex-label">DEX</span>
+										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden">
+											<div class="h-full bg-neon-pink stat-bar transition-none" id="dex-bar" style="width: 0%;"></div>
 										</div>
-										<span class="text-text-secondary w-8">78</span>
+										<span class="text-text-secondary w-12 text-right stat-value" id="dex-value" style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;">0</span>
 									</div>
-									<div class="flex items-center gap-2">
-										<span class="text-neon-yellow w-16">LUK</span>
-										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary">
-											<div class="h-full bg-neon-yellow" style="width: 88%;"></div>
+									<div class="flex items-center gap-2 stat-row" data-stat="luk" data-color="yellow">
+										<span class="text-neon-yellow w-16 stat-label" id="luk-label">LUK</span>
+										<div class="flex-1 h-2.5 border border-border-default bg-bg-secondary overflow-hidden">
+											<div class="h-full bg-neon-yellow stat-bar transition-none" id="luk-bar" style="width: 0%;"></div>
 										</div>
-										<span class="text-text-secondary w-8">88</span>
+										<span class="text-text-secondary w-12 text-right stat-value" id="luk-value" style="font-family: var(--font-mono); font-size: 1rem; min-width: 3ch;">0</span>
 									</div>
 								</div>
 
@@ -133,5 +133,175 @@ import { SITE_TITLE } from '../consts';
 			</div>
 		</main>
 		<Footer />
+
+		<style>
+			/* Glitch flash on the stat row */
+			@keyframes stat-glitch {
+				0% { opacity: 1; transform: translateX(0); }
+				10% { opacity: 0.7; transform: translateX(-3px) skewX(-5deg); }
+				20% { opacity: 1; transform: translateX(2px) skewX(2deg); }
+				30% { opacity: 0.5; transform: translateX(-1px); }
+				40% { opacity: 1; transform: translateX(0); }
+				100% { opacity: 1; transform: translateX(0); }
+			}
+
+			/* Glitch on the number value */
+			@keyframes value-glitch {
+				0% { text-shadow: none; }
+				15% { text-shadow: 2px 0 #ff2d95, -2px 0 #00fff5; color: #ff2d95; }
+				30% { text-shadow: -1px 0 #39ff14, 1px 0 #ff2d95; color: #00fff5; }
+				45% { text-shadow: 1px 1px #ffe66d; color: #ffe66d; }
+				60% { text-shadow: none; color: inherit; }
+				100% { text-shadow: none; color: inherit; }
+			}
+
+			/* Bar flash */
+			@keyframes bar-glitch {
+				0% { opacity: 1; }
+				20% { opacity: 0.3; }
+				40% { opacity: 1; }
+				60% { opacity: 0.6; }
+				80% { opacity: 1; }
+				100% { opacity: 1; }
+			}
+
+			.stat-row.glitching {
+				animation: stat-glitch 0.3s ease-out;
+			}
+
+			.stat-value.glitching {
+				animation: value-glitch 0.4s ease-out;
+			}
+
+			.stat-bar.glitching {
+				animation: bar-glitch 0.25s ease-out;
+			}
+
+			.stat-label.glitching {
+				animation: value-glitch 0.35s ease-out;
+			}
+		</style>
+
+		<script>
+			// Each stat has its own independent animation loop
+			const stats = ['str', 'int', 'dex', 'luk'];
+			const glitchChars = '!@#$%^&*░▒▓█▀▄■□▪▫';
+
+			class StatAnimator {
+				constructor(name) {
+					this.name = name;
+					this.bar = document.getElementById(`${name}-bar`);
+					this.value = document.getElementById(`${name}-value`);
+					this.label = document.getElementById(`${name}-label`);
+					this.row = this.bar?.closest('.stat-row');
+					this.current = Math.random() * 999;
+					this.target = Math.random() * 999;
+					this.speed = 0.5 + Math.random() * 3; // each stat has different speed
+					this.nextTargetDelay = 500 + Math.random() * 3000;
+					this.lastTargetChange = performance.now();
+					this.glitchCooldown = 0;
+				}
+
+				update(now) {
+					if (!this.bar || !this.value) return;
+
+					// Change target at random intervals (each stat independently)
+					if (now - this.lastTargetChange > this.nextTargetDelay) {
+						this.target = Math.random() * 999;
+						this.speed = 0.3 + Math.random() * 4;
+						this.nextTargetDelay = 400 + Math.random() * 4000;
+						this.lastTargetChange = now;
+
+						// Random chance to trigger glitch on target change
+						if (Math.random() < 0.4) {
+							this.triggerGlitch();
+						}
+					}
+
+					// Smoothly move toward target
+					const diff = this.target - this.current;
+					this.current += diff * this.speed * 0.02;
+
+					// Clamp
+					this.current = Math.max(0, Math.min(999, this.current));
+
+					const intVal = Math.round(this.current);
+					const pct = (this.current / 999) * 100;
+
+					// Update bar width
+					this.bar.style.width = `${pct}%`;
+
+					// Update value text
+					this.value.textContent = String(intVal).padStart(3, ' ');
+
+					// Random spontaneous glitch (low chance each frame)
+					if (this.glitchCooldown <= 0 && Math.random() < 0.003) {
+						this.triggerGlitch();
+					}
+
+					if (this.glitchCooldown > 0) {
+						this.glitchCooldown--;
+					}
+				}
+
+				triggerGlitch() {
+					if (this.glitchCooldown > 0) return;
+					this.glitchCooldown = 60; // ~1 second cooldown at 60fps
+
+					// Glitch the row
+					this.row?.classList.add('glitching');
+					this.value?.classList.add('glitching');
+					this.bar?.classList.add('glitching');
+					this.label?.classList.add('glitching');
+
+					// Briefly scramble the label text
+					const originalLabel = this.name.toUpperCase();
+					const scrambleCount = 2 + Math.floor(Math.random() * 4);
+					let scrambleIdx = 0;
+
+					const scrambleInterval = setInterval(() => {
+						if (scrambleIdx >= scrambleCount) {
+							clearInterval(scrambleInterval);
+							if (this.label) this.label.textContent = originalLabel;
+							return;
+						}
+						if (this.label) {
+							this.label.textContent = Array.from(originalLabel)
+								.map(c => Math.random() < 0.5 ? glitchChars[Math.floor(Math.random() * glitchChars.length)] : c)
+								.join('');
+						}
+						scrambleIdx++;
+					}, 50);
+
+					// Briefly show random value
+					const origVal = this.value?.textContent;
+					if (this.value) {
+						this.value.textContent = String(Math.floor(Math.random() * 999)).padStart(3, ' ');
+						setTimeout(() => {
+							if (this.value && origVal) this.value.textContent = origVal;
+						}, 100);
+					}
+
+					// Remove glitch classes after animation
+					setTimeout(() => {
+						this.row?.classList.remove('glitching');
+						this.value?.classList.remove('glitching');
+						this.bar?.classList.remove('glitching');
+						this.label?.classList.remove('glitching');
+					}, 400);
+				}
+			}
+
+			// Initialize all stat animators
+			const animators = stats.map(s => new StatAnimator(s));
+
+			// Main animation loop
+			function animate(now) {
+				animators.forEach(a => a.update(now));
+				requestAnimationFrame(animate);
+			}
+
+			requestAnimationFrame(animate);
+		</script>
 	</body>
 </html>
