@@ -23,7 +23,13 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				<!-- Hero Image -->
 				{heroImage && (
 					<div class="relative w-full max-w-4xl mx-auto px-6 pt-8">
-						<div class="overflow-hidden rounded-2xl border border-border-subtle">
+						<div class="retro-window">
+							<div class="retro-titlebar">
+								<div class="retro-titlebar-dots">
+									<span></span><span></span><span></span>
+								</div>
+								hero_image.png
+							</div>
 							<Image
 								width={1020}
 								height={510}
@@ -38,27 +44,54 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				<!-- Content -->
 				<div class="mx-auto max-w-3xl px-6 py-10">
 					<!-- Title Block -->
-					<header class="mb-10 text-center">
-						<div class="mb-4 flex items-center justify-center gap-3 text-text-secondary">
-							<FormattedDate date={pubDate} />
-							{updatedDate && (
-								<span class="text-xs italic text-text-secondary">
-									· Updated <FormattedDate date={updatedDate} />
-								</span>
-							)}
+					<header class="mb-10">
+						<div class="retro-window">
+							<div class="retro-titlebar">
+								<div class="retro-titlebar-dots">
+									<span></span><span></span><span></span>
+								</div>
+								article_info.dat
+							</div>
+							<div class="p-6 text-center">
+								<div class="mb-4 flex items-center justify-center gap-4">
+									<FormattedDate date={pubDate} />
+									{updatedDate && (
+										<span class="text-text-secondary" style="font-family: var(--font-mono); font-size: 0.85rem;">
+											· Updated: <FormattedDate date={updatedDate} />
+										</span>
+									)}
+								</div>
+								<h1 class="neon-green" style="font-family: var(--font-pixel); font-size: clamp(0.7rem, 2.5vw, 1.1rem); text-transform: uppercase; line-height: 2.2;">
+									{title}
+								</h1>
+								{description && (
+									<p class="mt-4 text-text-secondary" style="font-family: var(--font-mono); font-size: 1.05rem;">
+										&gt; {description}
+									</p>
+								)}
+							</div>
 						</div>
-						<h1 class="text-3xl font-bold leading-tight tracking-tight md:text-4xl lg:text-5xl bg-gradient-to-r from-text-primary to-text-secondary bg-clip-text text-transparent">
-							{title}
-						</h1>
-						{description && (
-							<p class="mt-4 text-lg text-text-secondary">{description}</p>
-						)}
-						<div class="mt-8 h-px w-full bg-gradient-to-r from-transparent via-border-default to-transparent"></div>
+						<div class="mt-6 text-center text-text-secondary" style="font-family: var(--font-mono); font-size: 0.9rem;">
+							════════════════════════════════════
+						</div>
 					</header>
 
 					<!-- Article Body -->
 					<div class="prose">
 						<slot />
+					</div>
+
+					<!-- End of Article -->
+					<div class="mt-12 text-center">
+						<p class="text-text-secondary" style="font-family: var(--font-mono); font-size: 0.9rem;">
+							════════════════════════════════════
+						</p>
+						<p class="mt-4 neon-green" style="font-family: var(--font-pixel); font-size: 0.5rem; text-transform: uppercase;">
+							— End of File —
+						</p>
+						<a href="/blog" class="pixel-btn mt-6 inline-block">
+							← Back to Blog
+						</a>
 					</div>
 				</div>
 			</article>

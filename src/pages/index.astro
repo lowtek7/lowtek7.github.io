@@ -23,90 +23,117 @@ const otherPosts = posts.slice(1);
 		<main class="flex-1">
 			<!-- Hero Section -->
 			<section class="relative overflow-hidden">
-				<!-- Background Glow -->
-				<div class="absolute inset-0 -z-10">
-					<div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-[120px]"></div>
-					<div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-purple-500/5 blur-[100px]"></div>
+				<!-- Decorative Stars -->
+				<div class="absolute inset-0 -z-10 overflow-hidden">
+					<div class="absolute top-12 left-[10%] w-1 h-1 bg-neon-green rounded-full" style="animation: twinkle 2s infinite;"></div>
+					<div class="absolute top-24 left-[30%] w-1.5 h-1.5 bg-neon-pink rounded-full" style="animation: twinkle 3s infinite 0.5s;"></div>
+					<div class="absolute top-8 left-[60%] w-1 h-1 bg-neon-cyan rounded-full" style="animation: twinkle 2.5s infinite 1s;"></div>
+					<div class="absolute top-32 left-[80%] w-1 h-1 bg-neon-yellow rounded-full" style="animation: twinkle 4s infinite 1.5s;"></div>
+					<div class="absolute top-20 left-[45%] w-0.5 h-0.5 bg-neon-green rounded-full" style="animation: twinkle 3.5s infinite 0.8s;"></div>
+					<div class="absolute top-40 left-[15%] w-1 h-1 bg-neon-purple rounded-full" style="animation: twinkle 2.8s infinite 1.2s;"></div>
+					<div class="absolute top-16 left-[75%] w-0.5 h-0.5 bg-neon-pink rounded-full" style="animation: twinkle 3.2s infinite 2s;"></div>
 				</div>
 
-				<div class="mx-auto max-w-5xl px-6 pt-20 pb-16 text-center">
-					<div class="inline-flex items-center gap-2 rounded-full border border-border-default bg-bg-secondary/60 px-4 py-1.5 text-xs font-medium text-text-secondary mb-8 backdrop-blur-sm">
-						<span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
-						Welcome to my digital space
+				<div class="mx-auto max-w-5xl px-6 pt-16 pb-12 text-center">
+					<!-- System Boot Message -->
+					<div class="mb-8" style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--color-neon-green);">
+						<p class="mb-1">> SYSTEM BOOT COMPLETE</p>
+						<p class="mb-1">> LOADING AMBER_WORLD.EXE...</p>
+						<p>> STATUS: <span class="neon-green">ONLINE</span> ■</p>
 					</div>
 
-					<h1 class="text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
-						<span class="block text-text-primary">Hello, I'm</span>
-						<span class="block mt-2 bg-gradient-to-r from-accent via-orange-400 to-amber-300 bg-clip-text text-transparent">
+					<!-- Title -->
+					<h1 class="mb-6" style="font-family: var(--font-pixel); font-size: clamp(1.2rem, 4vw, 2rem); line-height: 1.8;">
+						<span class="block text-text-primary">Welcome to</span>
+						<span class="block mt-3 neon-green" style="animation: glitch 3s infinite;">
 							Amber World
 						</span>
 					</h1>
 
-					<p class="mx-auto mt-6 max-w-2xl text-lg text-text-secondary leading-relaxed">
-						A place where ideas meet code, and creativity meets technology. 
-						Dive into articles about development, design, and everything in between.
+					<!-- Subtitle -->
+					<p class="mx-auto max-w-2xl text-text-secondary mb-10" style="font-family: var(--font-mono); font-size: 1.15rem; line-height: 1.8;">
+						&gt; A place where ideas meet code.<br/>
+						&gt; Exploring development, design, and creativity.<br/>
+						&gt; <span class="cursor-blink">SELECT YOUR DESTINATION</span>
 					</p>
 
-					<div class="mt-10 flex items-center justify-center gap-4">
-						<a
-							href="/blog"
-							class="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-light hover:shadow-lg hover:shadow-accent/25"
-							id="hero-cta"
-						>
-							Read the Blog
-							<svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
-								<path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
-							</svg>
+					<!-- CTA Buttons -->
+					<div class="flex items-center justify-center gap-4 flex-wrap">
+						<a href="/blog" class="pixel-btn" id="hero-cta">
+							→ Enter Blog
 						</a>
-						<a
-							href="/about"
-							class="inline-flex items-center gap-2 rounded-xl border border-border-default bg-bg-secondary/50 px-6 py-3 text-sm font-medium text-text-secondary transition-all duration-200 hover:border-accent/30 hover:text-text-primary hover:bg-bg-tertiary"
-							id="about-cta"
-						>
-							About Me
+						<a href="/about" class="pixel-btn pixel-btn-pink" id="about-cta">
+							→ About Me
 						</a>
 					</div>
 				</div>
 			</section>
 
+			<!-- HP Bar Decoration -->
+			<div class="mx-auto max-w-5xl px-6 mb-8">
+				<div class="flex items-center gap-3">
+					<span style="font-family: var(--font-pixel); font-size: 0.5rem; color: var(--color-neon-green);">HP</span>
+					<div class="flex-1 h-3 border-2 border-border-default bg-bg-secondary">
+						<div class="h-full bg-neon-green" style="width: 100%; animation: hp-fill 2s ease-out;"></div>
+					</div>
+					<span style="font-family: var(--font-pixel); font-size: 0.5rem; color: var(--color-text-secondary);">999/999</span>
+				</div>
+			</div>
+
 			<!-- Latest Posts Section -->
-			<section class="mx-auto max-w-5xl px-6 pb-20">
-				<div class="mb-10 flex items-center justify-between">
-					<h2 class="text-2xl font-bold text-text-primary">Latest Posts</h2>
-					<a href="/blog" class="text-sm font-medium text-accent transition-colors duration-200 hover:text-accent-light">
-						View all &rarr;
-					</a>
+			<section class="mx-auto max-w-5xl px-6 pb-16">
+				<!-- Section Header -->
+				<div class="retro-window mb-8">
+					<div class="retro-titlebar">
+						<div class="retro-titlebar-dots">
+							<span></span>
+							<span></span>
+							<span></span>
+						</div>
+						latest_posts.dat
+					</div>
+					<div class="p-4">
+						<h2 style="font-family: var(--font-pixel); font-size: 0.75rem; text-transform: uppercase; color: var(--color-neon-cyan);">
+							📂 Latest Posts
+						</h2>
+					</div>
 				</div>
 
 				<!-- Featured Post -->
 				{latestPost && (
 					<a
 						href={`/blog/${latestPost.id}/`}
-						class="group mb-8 block overflow-hidden rounded-2xl border border-border-subtle bg-bg-card transition-all duration-300 hover:border-accent/20 hover:bg-bg-card-hover hover:shadow-xl hover:shadow-accent/5"
+						class="group block mb-6 retro-window transition-all duration-200 hover:border-neon-green"
 						id="featured-post"
 					>
+						<div class="retro-titlebar">
+							<div class="retro-titlebar-dots">
+								<span></span><span></span><span></span>
+							</div>
+							featured.exe — ★ HIGHLIGHTED
+						</div>
 						<div class="flex flex-col md:flex-row">
 							{latestPost.data.heroImage && (
-								<div class="overflow-hidden md:w-1/2">
+								<div class="overflow-hidden md:w-80 md:flex-shrink-0 border-r-0 md:border-r-2 border-b-2 md:border-b-0 border-border-default">
 									<img
 										src={latestPost.data.heroImage.src}
 										alt=""
-										class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full"
+										class="h-48 w-full object-cover transition-all duration-300 group-hover:brightness-125 md:h-full"
 									/>
 								</div>
 							)}
-							<div class="flex flex-col justify-center p-8 md:w-1/2">
-								<span class="inline-block self-start rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent mb-4">
-									Featured
+							<div class="flex flex-col justify-center p-6">
+								<span class="neon-pink mb-3 inline-block self-start" style="font-family: var(--font-pixel); font-size: 0.45rem; text-transform: uppercase;">
+									★ New Entry
 								</span>
-								<h3 class="text-xl font-bold text-text-primary transition-colors duration-200 group-hover:text-accent md:text-2xl">
+								<h3 class="text-text-primary transition-colors duration-200 group-hover:text-neon-green" style="font-family: var(--font-pixel); font-size: 0.7rem; text-transform: uppercase; line-height: 2;">
 									{latestPost.data.title}
 								</h3>
-								<p class="mt-3 text-sm text-text-secondary line-clamp-2">
+								<p class="mt-3 text-sm text-text-secondary" style="font-family: var(--font-mono); font-size: 1rem;">
 									{latestPost.data.description}
 								</p>
-								<time datetime={latestPost.data.pubDate.toISOString()} class="mt-4 text-xs text-text-secondary">
-									{latestPost.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+								<time datetime={latestPost.data.pubDate.toISOString()} class="mt-4 text-text-secondary" style="font-family: var(--font-mono); font-size: 0.9rem;">
+									📅 {latestPost.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
 								</time>
 							</div>
 						</div>
@@ -115,36 +142,49 @@ const otherPosts = posts.slice(1);
 
 				<!-- Other Posts Grid -->
 				{otherPosts.length > 0 && (
-					<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-						{otherPosts.map((post) => (
+					<div class="grid gap-4 sm:grid-cols-2">
+						{otherPosts.map((post, index) => (
 							<a
 								href={`/blog/${post.id}/`}
-								class="group overflow-hidden rounded-xl border border-border-subtle bg-bg-card transition-all duration-300 hover:border-accent/20 hover:bg-bg-card-hover hover:shadow-lg hover:shadow-accent/5"
+								class="group retro-window transition-all duration-200 hover:border-neon-pink"
 							>
+								<div class="retro-titlebar">
+									<div class="retro-titlebar-dots">
+										<span></span><span></span><span></span>
+									</div>
+									post_{String(index + 1).padStart(2, '0')}.md
+								</div>
 								{post.data.heroImage && (
-									<div class="overflow-hidden">
+									<div class="overflow-hidden border-b-2 border-border-default">
 										<img
 											src={post.data.heroImage.src}
 											alt=""
-											class="h-40 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+											class="h-36 w-full object-cover transition-all duration-300 group-hover:brightness-125"
 										/>
 									</div>
 								)}
-								<div class="p-5">
-									<h3 class="text-base font-semibold text-text-primary transition-colors duration-200 group-hover:text-accent line-clamp-2">
+								<div class="p-4">
+									<h3 class="text-text-primary transition-colors duration-200 group-hover:text-neon-pink" style="font-family: var(--font-pixel); font-size: 0.55rem; text-transform: uppercase; line-height: 2;">
 										{post.data.title}
 									</h3>
-									<p class="mt-2 text-sm text-text-secondary line-clamp-2">
+									<p class="mt-2 text-text-secondary" style="font-family: var(--font-mono); font-size: 0.9rem;">
 										{post.data.description}
 									</p>
-									<time datetime={post.data.pubDate.toISOString()} class="mt-3 block text-xs text-text-secondary">
-										{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+									<time datetime={post.data.pubDate.toISOString()} class="mt-3 block text-text-secondary" style="font-family: var(--font-mono); font-size: 0.85rem;">
+										📅 {post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
 									</time>
 								</div>
 							</a>
 						))}
 					</div>
 				)}
+
+				<!-- View All -->
+				<div class="mt-8 text-center">
+					<a href="/blog" class="pixel-btn">
+						→ View All Posts
+					</a>
+				</div>
 			</section>
 		</main>
 		<Footer />

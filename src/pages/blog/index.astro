@@ -20,49 +20,65 @@ const posts = (await getCollection('blog')).sort(
 	<body class="min-h-screen flex flex-col">
 		<Header />
 		<main class="flex-1">
-			<div class="mx-auto max-w-5xl px-6 py-16">
+			<div class="mx-auto max-w-5xl px-6 py-12">
 				<!-- Page Header -->
-				<div class="mb-12">
-					<h1 class="text-3xl font-bold text-text-primary md:text-4xl">Blog</h1>
-					<p class="mt-3 text-text-secondary">
-						Thoughts, ideas, and deep dives into things I find interesting.
-					</p>
-					<div class="mt-6 h-px w-20 bg-gradient-to-r from-accent to-transparent"></div>
+				<div class="retro-window mb-10">
+					<div class="retro-titlebar">
+						<div class="retro-titlebar-dots">
+							<span></span><span></span><span></span>
+						</div>
+						blog_archive.dat
+					</div>
+					<div class="p-6">
+						<h1 style="font-family: var(--font-pixel); font-size: 1rem; color: var(--color-neon-cyan); text-transform: uppercase;">
+							📂 Blog Archive
+						</h1>
+						<p class="mt-3 text-text-secondary" style="font-family: var(--font-mono); font-size: 1rem;">
+							> Listing all entries... [{posts.length} files found]
+						</p>
+						<div class="mt-3 h-0.5 w-24 bg-neon-cyan"></div>
+					</div>
 				</div>
 
 				<!-- Posts List -->
-				<div class="space-y-6">
+				<div class="space-y-4">
 					{posts.map((post, index) => (
 						<a
 							href={`/blog/${post.id}/`}
-							class="group flex flex-col overflow-hidden rounded-xl border border-border-subtle bg-bg-card transition-all duration-300 hover:border-accent/20 hover:bg-bg-card-hover hover:shadow-lg hover:shadow-accent/5 sm:flex-row"
+							class="group flex flex-col overflow-hidden retro-window transition-all duration-200 hover:border-neon-green sm:flex-row"
 						>
+							<div class="retro-titlebar sm:hidden">
+								<div class="retro-titlebar-dots">
+									<span></span><span></span><span></span>
+								</div>
+								entry_{String(index + 1).padStart(3, '0')}.md
+							</div>
 							{post.data.heroImage && (
-								<div class="overflow-hidden sm:w-64 sm:flex-shrink-0">
+								<div class="overflow-hidden sm:w-56 sm:flex-shrink-0 border-b-2 sm:border-b-0 sm:border-r-2 border-border-default">
 									<Image
 										width={320}
 										height={180}
 										src={post.data.heroImage}
 										alt=""
-										class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-full"
+										class="h-40 w-full object-cover transition-all duration-300 group-hover:brightness-125 sm:h-full"
 									/>
 								</div>
 							)}
-							<div class="flex flex-col justify-center p-6">
-								<div class="mb-2">
+							<div class="flex flex-col justify-center p-5 flex-1">
+								<div class="flex items-center gap-3 mb-2">
+									<span class="neon-green" style="font-family: var(--font-pixel); font-size: 0.4rem;">
+										[{String(index + 1).padStart(2, '0')}]
+									</span>
 									<FormattedDate date={post.data.pubDate} />
 								</div>
-								<h2 class="text-lg font-semibold text-text-primary transition-colors duration-200 group-hover:text-accent">
+								<h2 class="text-text-primary transition-colors duration-200 group-hover:text-neon-green" style="font-family: var(--font-pixel); font-size: 0.6rem; text-transform: uppercase; line-height: 2;">
 									{post.data.title}
 								</h2>
-								<p class="mt-2 text-sm text-text-secondary line-clamp-2">
+								<p class="mt-2 text-text-secondary" style="font-family: var(--font-mono); font-size: 0.95rem;">
 									{post.data.description}
 								</p>
-								<span class="mt-4 inline-flex items-center gap-1 text-xs font-medium text-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-									Read more
-									<svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
-										<path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
-									</svg>
+								<span class="mt-3 text-neon-green opacity-0 transition-opacity duration-200 group-hover:opacity-100" style="font-family: var(--font-pixel); font-size: 0.4rem; text-transform: uppercase;">
+									▶ Read more...
 								</span>
 							</div>
 						</a>
