@@ -1,8 +1,16 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseHead from '../components/BaseHead.astro';
 import Footer from '../components/Footer.astro';
 import Header from '../components/Header.astro';
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const latestPost = posts[0];
+const otherPosts = posts.slice(1);
 ---
 
 <!doctype html>
@@ -10,39 +18,134 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 	</head>
-	<body>
+	<body class="min-h-screen flex flex-col">
 		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
+		<main class="flex-1">
+			<!-- Hero Section -->
+			<section class="relative overflow-hidden">
+				<!-- Background Glow -->
+				<div class="absolute inset-0 -z-10">
+					<div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-accent/5 blur-[120px]"></div>
+					<div class="absolute bottom-0 left-1/4 w-[400px] h-[400px] rounded-full bg-purple-500/5 blur-[100px]"></div>
+				</div>
+
+				<div class="mx-auto max-w-5xl px-6 pt-20 pb-16 text-center">
+					<div class="inline-flex items-center gap-2 rounded-full border border-border-default bg-bg-secondary/60 px-4 py-1.5 text-xs font-medium text-text-secondary mb-8 backdrop-blur-sm">
+						<span class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></span>
+						Welcome to my digital space
+					</div>
+
+					<h1 class="text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
+						<span class="block text-text-primary">Hello, I'm</span>
+						<span class="block mt-2 bg-gradient-to-r from-accent via-orange-400 to-amber-300 bg-clip-text text-transparent">
+							Amber World
+						</span>
+					</h1>
+
+					<p class="mx-auto mt-6 max-w-2xl text-lg text-text-secondary leading-relaxed">
+						A place where ideas meet code, and creativity meets technology. 
+						Dive into articles about development, design, and everything in between.
+					</p>
+
+					<div class="mt-10 flex items-center justify-center gap-4">
+						<a
+							href="/blog"
+							class="inline-flex items-center gap-2 rounded-xl bg-accent px-6 py-3 text-sm font-semibold text-bg-primary transition-all duration-200 hover:bg-accent-light hover:shadow-lg hover:shadow-accent/25"
+							id="hero-cta"
+						>
+							Read the Blog
+							<svg viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+								<path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+							</svg>
+						</a>
+						<a
+							href="/about"
+							class="inline-flex items-center gap-2 rounded-xl border border-border-default bg-bg-secondary/50 px-6 py-3 text-sm font-medium text-text-secondary transition-all duration-200 hover:border-accent/30 hover:text-text-primary hover:bg-bg-tertiary"
+							id="about-cta"
+						>
+							About Me
+						</a>
+					</div>
+				</div>
+			</section>
+
+			<!-- Latest Posts Section -->
+			<section class="mx-auto max-w-5xl px-6 pb-20">
+				<div class="mb-10 flex items-center justify-between">
+					<h2 class="text-2xl font-bold text-text-primary">Latest Posts</h2>
+					<a href="/blog" class="text-sm font-medium text-accent transition-colors duration-200 hover:text-accent-light">
+						View all &rarr;
+					</a>
+				</div>
+
+				<!-- Featured Post -->
+				{latestPost && (
+					<a
+						href={`/blog/${latestPost.id}/`}
+						class="group mb-8 block overflow-hidden rounded-2xl border border-border-subtle bg-bg-card transition-all duration-300 hover:border-accent/20 hover:bg-bg-card-hover hover:shadow-xl hover:shadow-accent/5"
+						id="featured-post"
+					>
+						<div class="flex flex-col md:flex-row">
+							{latestPost.data.heroImage && (
+								<div class="overflow-hidden md:w-1/2">
+									<img
+										src={latestPost.data.heroImage.src}
+										alt=""
+										class="h-56 w-full object-cover transition-transform duration-500 group-hover:scale-105 md:h-full"
+									/>
+								</div>
+							)}
+							<div class="flex flex-col justify-center p-8 md:w-1/2">
+								<span class="inline-block self-start rounded-full bg-accent/10 px-3 py-1 text-xs font-medium text-accent mb-4">
+									Featured
+								</span>
+								<h3 class="text-xl font-bold text-text-primary transition-colors duration-200 group-hover:text-accent md:text-2xl">
+									{latestPost.data.title}
+								</h3>
+								<p class="mt-3 text-sm text-text-secondary line-clamp-2">
+									{latestPost.data.description}
+								</p>
+								<time datetime={latestPost.data.pubDate.toISOString()} class="mt-4 text-xs text-text-secondary">
+									{latestPost.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+								</time>
+							</div>
+						</div>
+					</a>
+				)}
+
+				<!-- Other Posts Grid -->
+				{otherPosts.length > 0 && (
+					<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+						{otherPosts.map((post) => (
+							<a
+								href={`/blog/${post.id}/`}
+								class="group overflow-hidden rounded-xl border border-border-subtle bg-bg-card transition-all duration-300 hover:border-accent/20 hover:bg-bg-card-hover hover:shadow-lg hover:shadow-accent/5"
+							>
+								{post.data.heroImage && (
+									<div class="overflow-hidden">
+										<img
+											src={post.data.heroImage.src}
+											alt=""
+											class="h-40 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+										/>
+									</div>
+								)}
+								<div class="p-5">
+									<h3 class="text-base font-semibold text-text-primary transition-colors duration-200 group-hover:text-accent line-clamp-2">
+										{post.data.title}
+									</h3>
+									<p class="mt-2 text-sm text-text-secondary line-clamp-2">
+										{post.data.description}
+									</p>
+									<time datetime={post.data.pubDate.toISOString()} class="mt-3 block text-xs text-text-secondary">
+										{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}
+									</time>
+								</div>
+							</a>
+						))}
+					</div>
+				)}
+			</section>
 		</main>
 		<Footer />
 	</body>

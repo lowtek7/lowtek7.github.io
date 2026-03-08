@@ -5,7 +5,7 @@ import BaseHead from '../../components/BaseHead.astro';
 import Footer from '../../components/Footer.astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import Header from '../../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../../consts';
+import { SITE_TITLE } from '../../consts';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -15,99 +15,60 @@ const posts = (await getCollection('blog')).sort(
 <!doctype html>
 <html lang="en">
 	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-		<style>
-			main {
-				width: 960px;
-			}
-			ul {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 2rem;
-				list-style-type: none;
-				margin: 0;
-				padding: 0;
-			}
-			ul li {
-				width: calc(50% - 1rem);
-			}
-			ul li * {
-				text-decoration: none;
-				transition: 0.2s ease;
-			}
-			ul li:first-child {
-				width: 100%;
-				margin-bottom: 1rem;
-				text-align: center;
-			}
-			ul li:first-child img {
-				width: 100%;
-			}
-			ul li:first-child .title {
-				font-size: 2.369rem;
-			}
-			ul li img {
-				margin-bottom: 0.5rem;
-				border-radius: 12px;
-			}
-			ul li a {
-				display: block;
-			}
-			.title {
-				margin: 0;
-				color: rgb(var(--black));
-				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
-			}
-			ul li a:hover h4,
-			ul li a:hover .date {
-				color: rgb(var(--accent));
-			}
-			ul a:hover img {
-				box-shadow: var(--box-shadow);
-			}
-			@media (max-width: 720px) {
-				ul {
-					gap: 0.5em;
-				}
-				ul li {
-					width: 100%;
-					text-align: center;
-				}
-				ul li:first-child {
-					margin-bottom: 0;
-				}
-				ul li:first-child .title {
-					font-size: 1.563em;
-				}
-			}
-		</style>
+		<BaseHead title={`Blog — ${SITE_TITLE}`} description="All blog posts" />
 	</head>
-	<body>
+	<body class="min-h-screen flex flex-col">
 		<Header />
-		<main>
-			<section>
-				<ul>
-					{
-						posts.map((post) => (
-							<li>
-								<a href={`/blog/${post.id}/`}>
-									{post.data.heroImage && (
-										<Image width={720} height={360} src={post.data.heroImage} alt="" />
-									)}
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
-								</a>
-							</li>
-						))
-					}
-				</ul>
-			</section>
+		<main class="flex-1">
+			<div class="mx-auto max-w-5xl px-6 py-16">
+				<!-- Page Header -->
+				<div class="mb-12">
+					<h1 class="text-3xl font-bold text-text-primary md:text-4xl">Blog</h1>
+					<p class="mt-3 text-text-secondary">
+						Thoughts, ideas, and deep dives into things I find interesting.
+					</p>
+					<div class="mt-6 h-px w-20 bg-gradient-to-r from-accent to-transparent"></div>
+				</div>
+
+				<!-- Posts List -->
+				<div class="space-y-6">
+					{posts.map((post, index) => (
+						<a
+							href={`/blog/${post.id}/`}
+							class="group flex flex-col overflow-hidden rounded-xl border border-border-subtle bg-bg-card transition-all duration-300 hover:border-accent/20 hover:bg-bg-card-hover hover:shadow-lg hover:shadow-accent/5 sm:flex-row"
+						>
+							{post.data.heroImage && (
+								<div class="overflow-hidden sm:w-64 sm:flex-shrink-0">
+									<Image
+										width={320}
+										height={180}
+										src={post.data.heroImage}
+										alt=""
+										class="h-48 w-full object-cover transition-transform duration-500 group-hover:scale-105 sm:h-full"
+									/>
+								</div>
+							)}
+							<div class="flex flex-col justify-center p-6">
+								<div class="mb-2">
+									<FormattedDate date={post.data.pubDate} />
+								</div>
+								<h2 class="text-lg font-semibold text-text-primary transition-colors duration-200 group-hover:text-accent">
+									{post.data.title}
+								</h2>
+								<p class="mt-2 text-sm text-text-secondary line-clamp-2">
+									{post.data.description}
+								</p>
+								<span class="mt-4 inline-flex items-center gap-1 text-xs font-medium text-accent opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+									Read more
+									<svg viewBox="0 0 20 20" fill="currentColor" class="w-3.5 h-3.5">
+										<path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+									</svg>
+								</span>
+							</div>
+						</a>
+					))}
+				</div>
+			</div>
 		</main>
 		<Footer />
 	</body>
